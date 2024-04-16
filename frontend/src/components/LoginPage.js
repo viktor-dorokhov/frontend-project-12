@@ -1,17 +1,16 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
-/* import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Link,
-} from 'react-router-dom'; */
+import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
+
+import { login } from '../slices/authSlice';
 
 function LoginPage() {
   const inputRef = useRef();
   // const location = useLocation();
   // const navigate = useNavigate();
+  const authStatus = useSelector((state) => state.authStore.status);
+  const dispatch = useDispatch();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -20,24 +19,9 @@ function LoginPage() {
       username: '',
       password: '',
     },
-    /* onSubmit: async (values) => {
-        setAuthFailed(false);
-        try {
-          const res = await axios.post(routes.loginPath(), values);
-          localStorage.setItem('userId', JSON.stringify(res.data));
-          auth.logIn();
-          const { from } = location.state;
-          navigate(from);
-        } catch (err) {
-          formik.setSubmitting(false);
-          if (err.isAxiosError && err.response.status === 401) {
-            setAuthFailed(true);
-            inputRef.current.select();
-            return;
-          }
-          throw err;
-        }
-      }, */
+    onSubmit: (values) => {
+      dispatch(login(values));
+    },
   });
   return (
     <div className="container-fluid">
@@ -56,6 +40,7 @@ function LoginPage() {
                   autoComplete="username"
                   required
                   ref={inputRef}
+                  isInvalid={authStatus === 'error'}
                 />
               </Form.Group>
               <Form.Group>
@@ -69,6 +54,7 @@ function LoginPage() {
                   id="password"
                   autoComplete="current-password"
                   required
+                  isInvalid={authStatus === 'error'}
                 />
                 <Form.Control.Feedback type="invalid">Неверные имя пользователя или пароль</Form.Control.Feedback>
               </Form.Group>
