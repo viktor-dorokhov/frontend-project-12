@@ -18,7 +18,9 @@ const authSlice = createSlice({
         state.loggedIn = true;
         state.authToken = authTokenObject.token;
         state.username = authTokenObject.username;
+        return;
       }
+      state.loggedIn = false;
     },
     login: (state) => {
       state.status = 'loading';
