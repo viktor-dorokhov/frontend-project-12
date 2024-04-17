@@ -3,7 +3,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  loggedIn: false,
+  loggedIn: null,
   status: 'initial',
 };
 
@@ -14,7 +14,10 @@ const authSlice = createSlice({
     checkAuth: (state) => {
       const authToken = localStorage.getItem('authToken');
       if (authToken) {
+        const authTokenObject = JSON.parse(authToken);
         state.loggedIn = true;
+        state.authToken = authTokenObject.token;
+        state.username = authTokenObject.username;
       }
     },
     login: (state) => {
@@ -23,14 +26,20 @@ const authSlice = createSlice({
     loginSuccess: (state, { payload }) => {
       state.status = 'pending';
       state.loggedIn = true;
-      localStorage.setItem('authToken', payload.token);
+      state.authToken = payload.token;
+      state.username = payload.username;
+      localStorage.setItem('authToken', JSON.stringify(payload));
     },
     logout: (state) => {
       state.loggedIn = false;
+      state.authToken = '';
+      state.username = '';
       localStorage.setItem('authToken', '');
     },
     loginError: (state, { payload }) => {
       state.loggedIn = false;
+      state.authToken = '';
+      state.username = '';
       state.error = payload;
       state.status = 'error';
     },

@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
+import { /* useLocation, */useNavigate } from 'react-router-dom';
 
 import { login } from '../slices/authSlice';
 
@@ -10,10 +11,20 @@ function LoginPage() {
   // const location = useLocation();
   // const navigate = useNavigate();
   const authStatus = useSelector((state) => state.authStore.status);
+  const loggedIn = useSelector((state) => state.authStore.loggedIn);
   const dispatch = useDispatch();
+  // const location = useLocation();
+  const navigate = useNavigate();
+
   useEffect(() => {
     inputRef.current.focus();
   }, []);
+  useEffect(() => {
+    if (loggedIn) {
+      navigate('/');
+    }
+  }, [loggedIn]);
+
   const formik = useFormik({
     initialValues: {
       username: '',
