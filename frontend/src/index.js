@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { Provider } from 'react-redux';
 import './index.css';
-import App from './components/App';
-import store from './slices/index';
+import init from './init';
 
 const root = ReactDOM.createRoot(document.getElementById('chat'));
+const vdom = await init();
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <React.StrictMode>
+    {vdom}
+  </React.StrictMode>,
 );

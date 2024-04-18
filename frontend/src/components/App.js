@@ -1,7 +1,8 @@
 import '../App.css';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { Navbar, Button } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 import {
   BrowserRouter as Router,
   Routes,
@@ -11,63 +12,43 @@ import {
   useLocation,
 } from 'react-router-dom';
 
-import { checkAuth, logout } from '../slices/authSlice';
+import { logout } from '../slices/authSlice';
 import LoginPage from './LoginPage';
+import SignupPage from './SignupPage';
 import MainPage from './MainPage';
 
 function Page404() {
   return <div>Page 404</div>;
 }
 
-// eslint-disable-next-line react/prop-types
-function MainRoute({ children }) {
+function MainRoute() {
   const location = useLocation();
   const loggedIn = useSelector((state) => state.authStore.loggedIn);
-  if (loggedIn === null) {
-    return null;
-  }
   return (
-    loggedIn ? children : <Navigate to="/login" state={{ from: location }} />
+    loggedIn ? <MainPage /> : <Navigate to="/login" state={{ from: location }} />
   );
 }
 
-// eslint-disable-next-line react/prop-types
-/* function LoginRoute({ children }) {
-  const location = useLocation();
-  const loggedIn = useSelector((state) => state.authStore.loggedIn);
-  return (
-    !loggedIn ? children : <Navigate to="/" state={{ from: location }} />
-  );
-} */
-
 function App() {
   const dispatch = useDispatch();
+  const { t } = useTranslation();
   const loggedIn = useSelector((state) => state.authStore.loggedIn);
-  // dispatch(checkAuth());
-  useEffect(() => {
-    dispatch(checkAuth());
-  }, []);
-
   return (
     <Router>
-      <Navbar bg="white" expand="lg" className="shadow-sm">
-        <div className="container">
-          <Navbar.Brand as={Link} to="/">Hexlet Chat</Navbar.Brand>
-          {loggedIn && <Button onClick={() => dispatch(logout())}>Выйти</Button>}
-        </div>
-      </Navbar>
-      <Routes>
-        <Route path="*" element={<Page404 />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route
-          path="/"
-          element={(
-            <MainRoute>
-              <MainPage />
-            </MainRoute>
-          )}
-        />
-      </Routes>
+      <div className="d-flex flex-column h-100">
+        <Navbar bg="white" expand="lg" className="shadow-sm">
+          <div className="container">
+            <Navbar.Brand as={Link} to="/">{t('main.appName')}</Navbar.Brand>
+            {loggedIn && <Button onClick={() => dispatch(logout())}>{t('main.logout')}</Button>}
+          </div>
+        </Navbar>
+        <Routes>
+          <Route path="*" element={<Page404 />} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          <Route path="/" element={<MainRoute />} />
+        </Routes>
+      </div>
     </Router>
   );
 }

@@ -4,21 +4,18 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { /* useLocation, */useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import { login } from '../slices/authSlice';
-
-import { useLoginMutation } from '../services/authApi';
+import { useSignupMutation } from '../services/authApi';
 
 function LoginPage() {
   const inputRef = useRef();
   // const location = useLocation();
   // const navigate = useNavigate();
-  const authStatus = useSelector((state) => state.authStore.status);
-  const { t } = useTranslation();
+  // const authStatus = useSelector((state) => state.authStore.status);
   // const dispatch = useDispatch();
   // const location = useLocation();
+  const { t } = useTranslation();
   const navigate = useNavigate();
-
-  const [login] = useLoginMutation();
+  const [signup] = useSignupMutation();
 
   useEffect(() => {
     inputRef.current.focus();
@@ -28,10 +25,11 @@ function LoginPage() {
     initialValues: {
       username: '',
       password: '',
+      confirm: '',
     },
     onSubmit: async (values) => {
       try {
-        await login(values).unwrap();
+        await signup({ username: values.username, password: values.password }).unwrap();
         navigate('/');
       } catch (err) {
         // console.log(err);
@@ -45,35 +43,46 @@ function LoginPage() {
           <Form onSubmit={formik.handleSubmit} className="p-3">
             <fieldset>
               <Form.Group>
-                <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
+                <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
                 <Form.Control
                   onChange={formik.handleChange}
                   value={formik.values.username}
-                  placeholder={t('login.username')}
+                  placeholder={t('signup.username')}
                   name="username"
                   id="username"
                   autoComplete="username"
                   required
                   ref={inputRef}
-                  isInvalid={authStatus === 'error'}
                 />
               </Form.Group>
               <Form.Group>
-                <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+                <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
                 <Form.Control
                   type="password"
                   onChange={formik.handleChange}
                   value={formik.values.password}
-                  placeholder={t('login.username')}
+                  placeholder={t('signup.password')}
                   name="password"
                   id="password"
                   autoComplete="current-password"
                   required
-                  isInvalid={authStatus === 'error'}
                 />
-                <Form.Control.Feedback type="invalid">{t('login.errorAuth')}</Form.Control.Feedback>
               </Form.Group>
-              <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
+              <Form.Group>
+                <Form.Label htmlFor="confirm">{t('signup.confirm')}</Form.Label>
+                <Form.Control
+                  type="password"
+                  onChange={formik.handleChange}
+                  value={formik.values.confirm}
+                  placeholder={t('signup.confirm')}
+                  name="confirm"
+                  id="confirm"
+                  autoComplete="current-confirm"
+                  required
+                />
+                <Form.Control.Feedback type="invalid">{t('signup.errorAuth')}</Form.Control.Feedback>
+              </Form.Group>
+              <Button type="submit" variant="outline-primary">{t('signup.submit')}</Button>
             </fieldset>
           </Form>
         </div>

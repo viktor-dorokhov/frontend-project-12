@@ -1,59 +1,73 @@
 /* eslint-disable no-param-reassign */
 
 import { createSlice } from '@reduxjs/toolkit';
+import { authApi } from '../services/authApi';
 
-const initialState = {
-  loggedIn: null,
-  status: 'initial',
+const getInitialState = () => {
+  const authInfo = localStorage.getItem('authInfo');
+  const defaultObject = { status: 'initial' };
+  if (authInfo) {
+    const authInfoObject = JSON.parse(authInfo);
+    return {
+      ...defaultObject,
+      username: authInfoObject.username,
+      authToken: authInfoObject.token,
+      loggedIn: true,
+    };
+  }
+  return {
+    ...defaultObject,
+    username: null,
+    authToken: null,
+    loggedIn: false,
+  };
 };
+
+const initialState = getInitialState();
 
 const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    checkAuth: (state) => {
-      const authToken = localStorage.getItem('authToken');
-      if (authToken) {
-        const authTokenObject = JSON.parse(authToken);
-        state.loggedIn = true;
-        state.authToken = authTokenObject.token;
-        state.username = authTokenObject.username;
-        return;
-      }
-      state.loggedIn = false;
-    },
-    login: (state) => {
-      state.status = 'loading';
-    },
-    loginSuccess: (state, { payload }) => {
-      state.status = 'pending';
-      state.loggedIn = true;
-      state.authToken = payload.token;
-      state.username = payload.username;
-      localStorage.setItem('authToken', JSON.stringify(payload));
-    },
     logout: (state) => {
       state.loggedIn = false;
-      state.authToken = '';
-      state.username = '';
-      localStorage.setItem('authToken', '');
-    },
-    loginError: (state, { payload }) => {
-      state.loggedIn = false;
-      state.authToken = '';
-      state.username = '';
-      state.error = payload;
-      state.status = 'error';
+      state.authToken = null;
+      state.username = null;
+      localStorage.removeItem('authInfo');
     },
   },
-});
+  extraReducers: (builder) => {
+    builder
+      .addMatcher(authApi.endpoints.login.matchPending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
+        state.status = 'pending';
+        state.loggedIn = true;
+        state.authToken = action.payload.token;
+        state.username = action.payload.username;
+        localStorage.setItem('authInfo', JSON.stringify(action.payload));
+      })
+      .addMatcher(authApi.endpoints.login.matchRejected, (state, action) => {
+        state.error = action.payload;
+        state.status = 'error';
+      })
+      .addMatcher(authApi.endpoints.signup.matchPending, (state, action) => {
+        state.status = 'loading';
+      })
+      .addMatcher(authApi.endpoints.signup.matchFulfilled, (state, action) => {
+        state.status = 'pending';
+        state.loggedIn = true;
+        state.authToken = action.payload.token;
+        state.username = action.payload.username;
+        localStorage.setItem('authInfo', JSON.stringify(action.payload));
+      })
+      .addMatcher(authApi.endpoints.signup.matchRejected, (state, action) => {
+        state.error = action.payload;
+        state.status = 'error';
+      })
+  },
+})
 
-export const {
-  checkAuth,
-  login,
-  loginSuccess,
-  logout,
-  loginError,
-} = authSlice.actions;
-
+export const { logout, checkAuth } = authSlice.actions;
 export default authSlice.reducer;
