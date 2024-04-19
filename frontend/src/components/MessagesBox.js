@@ -4,9 +4,17 @@ import { createSelector } from '@reduxjs/toolkit';
 import { useFormik } from 'formik';
 import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
-
+import { ArrowRightCircle as SendIcon } from 'react-bootstrap-icons';
+import * as yup from 'yup';
 import { useFetchMessagesQuery, useAddMessageMutation } from '../services/messagesApi';
 import { useFetchChannelsQuery } from '../services/channelsApi';
+
+const validationSchema = yup.object().shape({
+  message: yup
+    .string()
+    .trim()
+    .required(),
+});
 
 function MessagesBox() {
   const { data: allMessages } = useFetchMessagesQuery();
@@ -39,11 +47,13 @@ function MessagesBox() {
     initialValues: {
       message: '',
     },
+    validationSchema,
     onSubmit: (values) => {
       addMessage({
         body: values.message, channelId: activeChannelId, username: currentUserName,
       });
       formik.resetForm();
+      inputRef.current.focus();
     },
   });
 
@@ -67,8 +77,8 @@ function MessagesBox() {
             ))}
         </div>
         <div className="mt-auto px-5 py-3">
-          <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2" noValidate>
-            <Form.Group className="input-group has-validation">
+          <Form onSubmit={formik.handleSubmit} className="py-1 border rounded-2">
+            <Form.Group className="input-group">
               <Form.Control
                 onChange={formik.handleChange}
                 value={formik.values.message}
@@ -77,10 +87,12 @@ function MessagesBox() {
                 name="message"
                 id="message"
                 autoComplete="message"
-                required
                 ref={inputRef}
               />
-              <Button type="submit" variant="outline-primary">{t('messages.send')}</Button>
+              <Button type="submit" variant="group-vertical" className="border-0" disabled={!(formik.isValid && formik.dirty)}>
+                <SendIcon size={20} />
+                <span className="visually-hidden">{t('messages.send')}</span>
+              </Button>
             </Form.Group>
           </Form>
         </div>

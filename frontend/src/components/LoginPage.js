@@ -1,24 +1,23 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { useSelector } from 'react-redux';
-import { Button, Form } from 'react-bootstrap';
-import { /* useLocation, */useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Form,
+  Card,
+  Image,
+} from 'react-bootstrap';
+import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-// import { login } from '../slices/authSlice';
+import chatImage from '../assets/chat.png';
 
 import { useLoginMutation } from '../services/authApi';
 
 function LoginPage() {
   const inputRef = useRef();
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  const authStatus = useSelector((state) => state.authStore.status);
   const { t } = useTranslation();
-  // const dispatch = useDispatch();
-  // const location = useLocation();
   const navigate = useNavigate();
-
   const [login] = useLoginMutation();
+  const [isLoginFailed, setLoginFailed] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -30,52 +29,79 @@ function LoginPage() {
       password: '',
     },
     onSubmit: async (values) => {
+      setLoginFailed(false);
       try {
         await login(values).unwrap();
         navigate('/');
       } catch (err) {
-        // console.log(err);
+        setLoginFailed(true);
       }
     },
   });
+
   return (
-    <div className="container-fluid">
-      <div className="row justify-content-center pt-5">
-        <div className="col-sm-4">
-          <Form onSubmit={formik.handleSubmit} className="p-3">
-            <fieldset>
-              <Form.Group>
-                <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
-                <Form.Control
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  placeholder={t('login.username')}
-                  name="username"
-                  id="username"
-                  autoComplete="username"
-                  required
-                  ref={inputRef}
-                  isInvalid={authStatus === 'error'}
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center pt-5row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Image
+                  fluid
+                  className="w-50"
+                  src={chatImage}
+                  alt={t('login.title')}
                 />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
-                <Form.Control
-                  type="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  placeholder={t('login.username')}
-                  name="password"
-                  id="password"
-                  autoComplete="current-password"
-                  required
-                  isInvalid={authStatus === 'error'}
-                />
-                <Form.Control.Feedback type="invalid">{t('login.errorAuth')}</Form.Control.Feedback>
-              </Form.Group>
-              <Button type="submit" variant="outline-primary" disabled={formik.isSubmitting}>{t('login.submit')}</Button>
-            </fieldset>
-          </Form>
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+                <h1 className="text-center mb-4">{t('login.title')}</h1>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    onChange={formik.handleChange}
+                    value={formik.values.username}
+                    placeholder={t('login.username')}
+                    name="username"
+                    id="username"
+                    autoComplete="current-username"
+                    required
+                    ref={inputRef}
+                    isInvalid={isLoginFailed}
+                  />
+                  <Form.Label htmlFor="username">{t('login.username')}</Form.Label>
+                </Form.Group>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    type="password"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    placeholder={t('login.password')}
+                    name="password"
+                    id="password"
+                    autoComplete="current-password"
+                    required
+                    isInvalid={isLoginFailed}
+                  />
+                  <Form.Label htmlFor="password">{t('login.password')}</Form.Label>
+                  <Form.Control.Feedback type="invalid">{t('login.errorAuth')}</Form.Control.Feedback>
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100 mb-3"
+                  disabled={formik.isSubmitting}
+                >
+                  {t('login.submit')}
+                </Button>
+              </Form>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <span>{t('login.noAccount')}</span>
+                &nbsp;
+                <Link to="/signup">{t('login.signup')}</Link>
+              </div>
+            </Card.Footer>
+          </Card>
         </div>
       </div>
     </div>

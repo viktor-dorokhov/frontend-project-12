@@ -23,6 +23,8 @@ const en = {
       password: 'Password',
       submit: 'Login',
       title: 'Login',
+      noAccount: 'No account?',
+      signup: 'Sign up',
       errorAuth: 'Invalid username or password',
     },
     signup: {
@@ -31,7 +33,14 @@ const en = {
       confirm: 'Confirm password',
       submit: 'Sign up',
       title: 'Sign up',
-      errorAuth: 'Invalid username or password',
+      back: 'Back',
+      validation: {
+        required: 'Required field',
+        usernameLength: 'From 3 to 20 symbols',
+        passwordLength: 'At least 6 characters',
+        confirmPassword: 'Passwords must match',
+        userExists: 'Such user already exists',
+      },
     },
     modal: {
       addChannel: {

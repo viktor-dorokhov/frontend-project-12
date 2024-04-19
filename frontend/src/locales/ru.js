@@ -24,6 +24,8 @@ const ru = {
       password: 'Пароль',
       submit: 'Войти',
       title: 'Войти',
+      noAccount: 'Нет аккаунта?',
+      signup: 'Зарегистрироваться',
       errorAuth: 'Неверные имя пользователя или пароль',
     },
     signup: {
@@ -32,7 +34,14 @@ const ru = {
       confirm: 'Подтвердите пароль',
       submit: 'Зарегистрироваться',
       title: 'Регистрация',
-      errorAuth: 'Неверные имя пользователя или пароль',
+      back: 'Вернуться назад',
+      validation: {
+        required: 'Обязательное поле',
+        usernameLength: 'От 3 до 20 символов',
+        passwordLength: 'Не менее 6 символов',
+        confirmPassword: 'Пароли должны совпадать',
+        userExists: 'Такой пользователь уже существует',
+      },
     },
     modal: {
       addChannel: {

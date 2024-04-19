@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
-import { PlusCircle } from 'react-bootstrap-icons';
+import { PlusCircle as PlusCircleIcon } from 'react-bootstrap-icons';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 import { setActiveChannel, openModal } from '../slices/uiSlice';
 
@@ -33,7 +33,7 @@ function ChannelsBox() {
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channels.channels')}</b>
         <Button type="button" variant="group-vertical" className="p-0 text-primary" onClick={handleAddChannel}>
-          <PlusCircle size={20} />
+          <PlusCircleIcon size={20} />
           <span className="visually-hidden">+</span>
         </Button>
       </div>

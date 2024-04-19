@@ -1,15 +1,45 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
-import { /* useLocation, */useNavigate } from 'react-router-dom';
+import {
+  Button,
+  Form,
+  Card,
+  Image,
+} from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import * as yup from 'yup';
+import addUserImage from '../assets/addUser.png';
+
 import { useSignupMutation } from '../services/authApi';
 
-function LoginPage() {
+const validationSchema = yup.object().shape({
+  username: yup
+    .string()
+    .trim()
+    .required('signup.validation.required')
+    .min(3, 'signup.validation.usernameLength'),
+  password: yup
+    .string()
+    .trim()
+    .required('signup.validation.required')
+    .min(6, 'signup.validation.passwordLength'),
+  confirm: yup
+    .string()
+    .trim()
+    .required('signup.validation.required')
+    .oneOf(
+      [yup.ref('password')],
+      'signup.validation.confirmPassword',
+    ),
+});
+
+function SignupPage() {
   const inputRef = useRef();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [signup] = useSignupMutation();
+  const [isSignupFailed, setSignupFailed] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -21,68 +51,114 @@ function LoginPage() {
       password: '',
       confirm: '',
     },
+    validationSchema,
     onSubmit: async (values) => {
+      setSignupFailed(false);
       try {
         await signup({ username: values.username, password: values.password }).unwrap();
         navigate('/');
       } catch (err) {
-        // console.log(err);
+        if (err.status === 409) {
+          setSignupFailed(true);
+          return;
+        }
+        throw err;
       }
     },
   });
+
+  useEffect(() => {
+    setSignupFailed(false);
+  }, [formik.values]);
+
+  const goBack = () => {
+    navigate(-1);
+  };
+
   return (
-    <div className="container-fluid">
-      <div className="row justify-content-center pt-5">
-        <div className="col-sm-4">
-          <Form onSubmit={formik.handleSubmit} className="p-3">
-            <fieldset>
-              <Form.Group>
-                <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
-                <Form.Control
-                  onChange={formik.handleChange}
-                  value={formik.values.username}
-                  placeholder={t('signup.username')}
-                  name="username"
-                  id="username"
-                  autoComplete="username"
-                  required
-                  ref={inputRef}
+    <div className="container-fluid h-100">
+      <div className="row justify-content-center pt-5row justify-content-center align-content-center h-100">
+        <div className="col-12 col-md-8 col-xxl-6">
+          <Card className="shadow-sm">
+            <Card.Body className="row p-5">
+              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+                <Image
+                  fluid
+                  className="w-50"
+                  src={addUserImage}
+                  alt={t('signup.title')}
                 />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
-                <Form.Control
-                  type="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                  placeholder={t('signup.password')}
-                  name="password"
-                  id="password"
-                  autoComplete="current-password"
-                  required
-                />
-              </Form.Group>
-              <Form.Group>
-                <Form.Label htmlFor="confirm">{t('signup.confirm')}</Form.Label>
-                <Form.Control
-                  type="password"
-                  onChange={formik.handleChange}
-                  value={formik.values.confirm}
-                  placeholder={t('signup.confirm')}
-                  name="confirm"
-                  id="confirm"
-                  autoComplete="current-confirm"
-                  required
-                />
-                <Form.Control.Feedback type="invalid">{t('signup.errorAuth')}</Form.Control.Feedback>
-              </Form.Group>
-              <Button type="submit" variant="outline-primary" disabled={formik.isSubmitting}>{t('signup.submit')}</Button>
-            </fieldset>
-          </Form>
+              </div>
+              <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
+                <h1 className="text-center mb-4">{t('signup.title')}</h1>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.username}
+                    placeholder={t('signup.username')}
+                    name="username"
+                    data-testid="input-username"
+                    autoComplete="new-username"
+                    ref={inputRef}
+                    isInvalid={(formik.errors.username && formik.touched.username)
+                      || isSignupFailed}
+                  />
+                  <Form.Label htmlFor="username">{t('signup.username')}</Form.Label>
+                  <Form.Control.Feedback type="invalid" tooltip>
+                    {isSignupFailed ? t('signup.validation.userExists') : t(formik.errors.username)}
+                  </Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    type="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.password}
+                    placeholder={t('signup.password')}
+                    name="password"
+                    id="password"
+                    autoComplete="new-password"
+                    isInvalid={formik.errors.password && formik.touched.password}
+                  />
+                  <Form.Label htmlFor="password">{t('signup.password')}</Form.Label>
+                  <Form.Control.Feedback type="invalid" tooltip>{t(formik.errors.password)}</Form.Control.Feedback>
+                </Form.Group>
+                <Form.Group className="form-floating mb-3">
+                  <Form.Control
+                    type="password"
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    value={formik.values.confirm}
+                    placeholder={t('signup.confirm')}
+                    name="confirm"
+                    id="confirm"
+                    autoComplete="new-confirm"
+                    isInvalid={formik.errors.confirm && formik.touched.confirm}
+                  />
+                  <Form.Label htmlFor="password">{t('signup.confirm')}</Form.Label>
+                  <Form.Control.Feedback type="invalid" tooltip>{t(formik.errors.confirm)}</Form.Control.Feedback>
+                </Form.Group>
+                <Button
+                  type="submit"
+                  variant="outline-primary"
+                  className="w-100 mb-3"
+                  disabled={formik.isSubmitting}
+                >
+                  {t('signup.submit')}
+                </Button>
+              </Form>
+            </Card.Body>
+            <Card.Footer className="p-4">
+              <div className="text-center">
+                <Button variant="link" onClick={goBack}>{t('signup.back')}</Button>
+              </div>
+            </Card.Footer>
+          </Card>
         </div>
       </div>
     </div>
   );
 }
 
-export default LoginPage;
+export default SignupPage;
