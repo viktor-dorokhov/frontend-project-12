@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import { useFormik } from 'formik';
-import { useSelector, useDispatch } from 'react-redux';
 import { Button, Form } from 'react-bootstrap';
 import { /* useLocation, */useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
@@ -8,11 +7,6 @@ import { useSignupMutation } from '../services/authApi';
 
 function LoginPage() {
   const inputRef = useRef();
-  // const location = useLocation();
-  // const navigate = useNavigate();
-  // const authStatus = useSelector((state) => state.authStore.status);
-  // const dispatch = useDispatch();
-  // const location = useLocation();
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [signup] = useSignupMutation();

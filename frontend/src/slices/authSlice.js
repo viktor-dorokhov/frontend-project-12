@@ -38,7 +38,7 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(authApi.endpoints.login.matchPending, (state, action) => {
+      .addMatcher(authApi.endpoints.login.matchPending, (state) => {
         state.status = 'loading';
       })
       .addMatcher(authApi.endpoints.login.matchFulfilled, (state, action) => {
@@ -52,7 +52,7 @@ const authSlice = createSlice({
         state.error = action.payload;
         state.status = 'error';
       })
-      .addMatcher(authApi.endpoints.signup.matchPending, (state, action) => {
+      .addMatcher(authApi.endpoints.signup.matchPending, (state) => {
         state.status = 'loading';
       })
       .addMatcher(authApi.endpoints.signup.matchFulfilled, (state, action) => {
@@ -65,9 +65,9 @@ const authSlice = createSlice({
       .addMatcher(authApi.endpoints.signup.matchRejected, (state, action) => {
         state.error = action.payload;
         state.status = 'error';
-      })
+      });
   },
-})
+});
 
 export const { logout, checkAuth } = authSlice.actions;
 export default authSlice.reducer;

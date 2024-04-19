@@ -11,11 +11,9 @@ export const channelsApi = createApi({
       return headers;
     },
   }),
-  // tagTypes: ['Channels', 'Messages'],
   endpoints: (builder) => ({
     fetchChannels: builder.query({
       query: () => '',
-      // providesTags: ['Channels'],
     }),
   }),
 });
