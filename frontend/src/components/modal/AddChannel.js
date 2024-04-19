@@ -4,6 +4,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { useFetchChannelsQuery, useAddChannelMutation } from '../../services/channelsApi';
 
 const getValidationSchema = (channelNames) => yup.object().shape({
@@ -32,7 +33,7 @@ function AddChannel({ onHide }) {
     validateOnChange: false,
     onSubmit: async ({ name }) => {
       try {
-        await addChannel({ name: name.trim() }).unwrap();
+        await addChannel({ name: leoProfanity.clean(name.trim()) }).unwrap();
         toast.success(t('channels.toast.added'));
         formik.resetForm();
         onHide();

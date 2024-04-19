@@ -5,6 +5,7 @@ import { Modal, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { useFetchChannelsQuery, useRenameChannelMutation } from '../../services/channelsApi';
 
 const getValidationSchema = (channelNames) => yup.object().shape({
@@ -35,7 +36,7 @@ function RenameChannel({ onHide }) {
     validateOnChange: false,
     onSubmit: async ({ name }) => {
       try {
-        await renameChannel({ name: name.trim(), id: channelId }).unwrap();
+        await renameChannel({ name: leoProfanity.clean(name.trim()), id: channelId }).unwrap();
         toast.success(t('channels.toast.renamed'));
         formik.resetForm();
         onHide();

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import i18next from 'i18next';
-import { initReactI18next } from 'react-i18next';
+import { initReactI18next, I18nextProvider } from 'react-i18next';
 import { io } from 'socket.io-client';
+import leoProfanity from 'leo-profanity';
 import store from './slices/index';
 import resources from './locales/index';
 import App from './components/App';
@@ -11,7 +12,7 @@ import { channelsApi } from './services/channelsApi';
 import { setActiveChannel, defaultChannelId } from './slices/uiSlice';
 
 const init = async () => {
-  const i18n = i18next.createInstance();
+  const i18nInstance = i18next.createInstance();
   const options = {
     resources,
     fallbackLng: 'ru',
@@ -19,9 +20,12 @@ const init = async () => {
       escapeValue: false,
     },
   };
-  await i18n
+  await i18nInstance
     .use(initReactI18next)
     .init(options);
+
+  const ruDictionary = leoProfanity.getDictionary('ru');
+  leoProfanity.add(ruDictionary);
 
   const socket = io();
   socket.on('newMessage', (message) => {
@@ -53,7 +57,9 @@ const init = async () => {
 
   return (
     <Provider store={store}>
-      <App />
+      <I18nextProvider i18n={i18nInstance}>
+        <App />
+      </I18nextProvider>
     </Provider>
   );
 };

@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import { ArrowRightCircle as SendIcon } from 'react-bootstrap-icons';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
+import leoProfanity from 'leo-profanity';
 import { useFetchMessagesQuery, useAddMessageMutation } from '../services/messagesApi';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 
@@ -53,7 +54,9 @@ function MessagesBox() {
     onSubmit: async (values) => {
       try {
         await addMessage({
-          body: values.message, channelId: activeChannelId, username: currentUserName,
+          body: leoProfanity.clean(values.message.trim()),
+          channelId: activeChannelId,
+          username: currentUserName,
         }).unwrap();
         formik.resetForm();
         inputRef.current.focus();
