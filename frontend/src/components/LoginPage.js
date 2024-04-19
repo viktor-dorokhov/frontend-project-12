@@ -8,8 +8,9 @@ import {
 } from 'react-bootstrap';
 import { useNavigate, Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import chatImage from '../assets/chat.png';
+import { toast } from 'react-toastify';
 
+import chatImage from '../assets/chat.png';
 import { useLoginMutation } from '../services/authApi';
 
 function LoginPage() {
@@ -34,7 +35,11 @@ function LoginPage() {
         await login(values).unwrap();
         navigate('/');
       } catch (err) {
-        setLoginFailed(true);
+        if (err.status === 401) {
+          setLoginFailed(true);
+          return;
+        }
+        toast.error(t('main.errorNetwork'));
       }
     },
   });

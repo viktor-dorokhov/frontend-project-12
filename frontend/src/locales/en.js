@@ -4,11 +4,17 @@ const en = {
       appName: 'Slack chat',
       logout: 'Log out',
       loading: 'Загрузка...',
+      errorNetwork: 'Network error',
     },
     channels: {
       channels: 'Channels',
       rename: 'Rename',
       remove: 'Remove',
+      toast: {
+        added: 'The channel has been created',
+        renamed: 'The channel has been renamed',
+        removed: 'The channel has been removed',
+      },
     },
     messages: {
       counter: {

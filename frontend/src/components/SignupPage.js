@@ -9,8 +9,9 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import * as yup from 'yup';
-import addUserImage from '../assets/addUser.png';
+import { toast } from 'react-toastify';
 
+import addUserImage from '../assets/addUser.png';
 import { useSignupMutation } from '../services/authApi';
 
 const validationSchema = yup.object().shape({
@@ -62,7 +63,7 @@ function SignupPage() {
           setSignupFailed(true);
           return;
         }
-        throw err;
+        toast.error(t('main.errorNetwork'));
       }
     },
   });

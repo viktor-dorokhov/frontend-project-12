@@ -4,11 +4,17 @@ const ru = {
       appName: 'Slack чат',
       logout: 'Выйти',
       loading: 'Loading...',
+      errorNetwork: 'Ошибка сети',
     },
     channels: {
       channels: 'Каналы',
       rename: 'Переименовать',
       remove: 'Удалить',
+      toast: {
+        added: 'Канал создан',
+        renamed: 'Канал переименован',
+        removed: 'Канал удален',
+      },
     },
     messages: {
       counter: {

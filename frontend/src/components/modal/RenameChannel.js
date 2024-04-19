@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import { Modal, Form, Button } from 'react-bootstrap';
 import * as yup from 'yup';
 import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { useFetchChannelsQuery, useRenameChannelMutation } from '../../services/channelsApi';
 
 const getValidationSchema = (channelNames) => yup.object().shape({
@@ -33,9 +34,14 @@ function RenameChannel({ onHide }) {
     validateOnBlur: false,
     validateOnChange: false,
     onSubmit: async ({ name }) => {
-      renameChannel({ name: name.trim(), id: channelId });
-      formik.resetForm();
-      onHide();
+      try {
+        await renameChannel({ name: name.trim(), id: channelId }).unwrap();
+        toast.success(t('channels.toast.renamed'));
+        formik.resetForm();
+        onHide();
+      } catch (err) {
+        toast.error(t('main.errorNetwork'));
+      }
     },
   });
 

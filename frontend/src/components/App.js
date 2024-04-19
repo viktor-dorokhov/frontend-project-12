@@ -11,6 +11,8 @@ import {
   Navigate,
   useLocation,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { logout } from '../slices/authSlice';
 import LoginPage from './LoginPage';
@@ -49,6 +51,7 @@ function App() {
           <Route path="/" element={<MainRoute />} />
         </Routes>
       </div>
+      <ToastContainer />
     </Router>
   );
 }

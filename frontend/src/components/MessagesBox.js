@@ -6,6 +6,7 @@ import { Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightCircle as SendIcon } from 'react-bootstrap-icons';
 import * as yup from 'yup';
+import { toast } from 'react-toastify';
 import { useFetchMessagesQuery, useAddMessageMutation } from '../services/messagesApi';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 
@@ -39,21 +40,26 @@ function MessagesBox() {
   const inputRef = useRef();
   const currentUserName = useSelector((state) => state.authStore.username);
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
-  // const dispatch = useDispatch();
+
   useEffect(() => {
     inputRef.current.focus();
   }, [activeChannelId]);
+
   const formik = useFormik({
     initialValues: {
       message: '',
     },
     validationSchema,
-    onSubmit: (values) => {
-      addMessage({
-        body: values.message, channelId: activeChannelId, username: currentUserName,
-      });
-      formik.resetForm();
-      inputRef.current.focus();
+    onSubmit: async (values) => {
+      try {
+        await addMessage({
+          body: values.message, channelId: activeChannelId, username: currentUserName,
+        }).unwrap();
+        formik.resetForm();
+        inputRef.current.focus();
+      } catch (err) {
+        toast.error(t('main.errorNetwork'));
+      }
     },
   });
 
@@ -71,7 +77,7 @@ function MessagesBox() {
             .map(({ id, body, username }) => (
               <div key={id} className="text-break mb-2">
                 <b>{username}</b>
-                :
+                :&nbsp;
                 {body}
               </div>
             ))}
