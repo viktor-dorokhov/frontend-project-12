@@ -7,6 +7,8 @@ import store from './slices/index';
 import resources from './locales/index';
 import App from './components/App';
 import { messagesApi } from './services/messagesApi';
+import { channelsApi } from './services/channelsApi';
+import { setActiveChannel, defaultChannelId } from './slices/uiSlice';
 
 const init = async () => {
   const i18n = i18next.createInstance();
@@ -25,6 +27,27 @@ const init = async () => {
   socket.on('newMessage', (message) => {
     store.dispatch(messagesApi.util.updateQueryData('fetchMessages', undefined, (draftMessages) => {
       draftMessages.push(message);
+    }));
+  });
+  socket.on('newChannel', (channel) => {
+    store.dispatch(channelsApi.util.updateQueryData('fetchChannels', undefined, (draftChannels) => {
+      draftChannels.push(channel);
+    }));
+  });
+  socket.on('renameChannel', (channel) => {
+    store.dispatch(channelsApi.util.updateQueryData('fetchChannels', undefined, (draftChannels) => {
+      const currentChannel = draftChannels.find((item) => item.id === channel.id);
+      currentChannel.name = channel.name;
+    }));
+  });
+  socket.on('removeChannel', (channel) => {
+    store.dispatch(channelsApi.util.updateQueryData('fetchChannels', undefined, (draftChannels) => {
+      const channels = draftChannels.filter((item) => item.id !== channel.id);
+      const state = store.getState();
+      if (state.uiStore.activeChannelId === channel.id) {
+        store.dispatch(setActiveChannel(defaultChannelId));
+      }
+      return channels;
     }));
   });
 

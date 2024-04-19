@@ -7,6 +7,8 @@ const ru = {
     },
     channels: {
       channels: 'Каналы',
+      rename: 'Переименовать',
+      remove: 'Удалить',
     },
     messages: {
       counter: {
@@ -32,17 +34,34 @@ const ru = {
       title: 'Регистрация',
       errorAuth: 'Неверные имя пользователя или пароль',
     },
+    modal: {
+      addChannel: {
+        title: 'Добавить канал',
+        placeholder: 'Название канала',
+      },
+      renameChannel: {
+        title: 'Переименовать канал',
+        placeholder: 'Новое название канала',
+      },
+      removeChannel: {
+        title: 'Удалить канал',
+        body: 'Уверены?',
+      },
+      validation: {
+        required: 'Обязательное поле',
+        uniq: 'Должно быть уникальным',
+        min: 'От 3 до 20 символов',
+        max: 'От 3 до 20 символов',
+      },
+      buttons: {
+        submit: 'Отправить',
+        cancel: 'Отмена',
+        remove: 'Удалить',
+      },
+    },
     languages: {
       en: 'English',
       ru: 'Русский',
-    },
-    buttons: {
-      counter: {
-        count_one: '{{count}} клик',
-        count_few: '{{count}} клика',
-        count_many: '{{count}} кликов',
-      },
-      reset: 'Сбросить',
     },
     // END
   },

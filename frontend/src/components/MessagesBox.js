@@ -26,17 +26,15 @@ function MessagesBox() {
     ),
   );
   const channelName = useSelector(getActiveChannelName);
-  const [
-    addMessage,
-  ] = useAddMessageMutation();
+  const [addMessage] = useAddMessageMutation();
   const { t } = useTranslation();
   const inputRef = useRef();
   const currentUserName = useSelector((state) => state.authStore.username);
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
   // const dispatch = useDispatch();
   useEffect(() => {
-    // inputRef.current.focus();
-  }, []);
+    inputRef.current.focus();
+  }, [activeChannelId]);
   const formik = useFormik({
     initialValues: {
       message: '',

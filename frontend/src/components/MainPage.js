@@ -5,6 +5,7 @@ import { useFetchMessagesQuery } from '../services/messagesApi';
 
 import ChannelsBox from './ChannelsBox';
 import MessagesBox from './MessagesBox';
+import Modal from './modal/index';
 
 function MainPage() {
   const { isLoading: isChannelsLoading } = useFetchChannelsQuery();
@@ -17,12 +18,15 @@ function MainPage() {
         </div>
       )
       : (
-        <div className="container h-100 my-4 overflow-hidden rounded shadow">
-          <div className="row h-100 bg-white flex-md-row">
-            <ChannelsBox />
-            <MessagesBox />
+        <>
+          <div className="container h-100 my-4 overflow-hidden rounded shadow">
+            <div className="row h-100 bg-white flex-md-row">
+              <ChannelsBox />
+              <MessagesBox />
+            </div>
           </div>
-        </div>
+          <Modal />
+        </>
       )
   );
 }

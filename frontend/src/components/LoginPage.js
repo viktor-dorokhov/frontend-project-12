@@ -73,7 +73,7 @@ function LoginPage() {
                 />
                 <Form.Control.Feedback type="invalid">{t('login.errorAuth')}</Form.Control.Feedback>
               </Form.Group>
-              <Button type="submit" variant="outline-primary">{t('login.submit')}</Button>
+              <Button type="submit" variant="outline-primary" disabled={formik.isSubmitting}>{t('login.submit')}</Button>
             </fieldset>
           </Form>
         </div>
