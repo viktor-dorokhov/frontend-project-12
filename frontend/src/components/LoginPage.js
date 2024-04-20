@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import {
+  Container,
   Button,
   Form,
   Card,
@@ -45,7 +46,7 @@ function LoginPage() {
   });
 
   return (
-    <div className="container-fluid h-100">
+    <Container fluid className="h-100">
       <div className="row justify-content-center pt-5row justify-content-center align-content-center h-100">
         <div className="col-12 col-md-8 col-xxl-6">
           <Card className="shadow-sm">
@@ -109,7 +110,7 @@ function LoginPage() {
           </Card>
         </div>
       </div>
-    </div>
+    </Container>
   );
 }
 

@@ -73,7 +73,8 @@ const en = {
         remove: 'Remove',
       },
     },
-    languages: {
+    language: {
+      title: 'Language',
       en: 'English',
       ru: 'Русский',
     },

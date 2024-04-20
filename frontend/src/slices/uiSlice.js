@@ -11,6 +11,7 @@ const initialState = {
     active: null,
     data: null,
   },
+  language: 'ru',
 };
 
 const uiSlice = createSlice({
@@ -27,6 +28,9 @@ const uiSlice = createSlice({
     closeModal(state) {
       state.modal.active = null;
     },
+    changeLanguage(state, { payload }) {
+      state.language = payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addMatcher(
@@ -38,5 +42,10 @@ const uiSlice = createSlice({
   },
 });
 
-export const { setActiveChannel, openModal, closeModal } = uiSlice.actions;
+export const {
+  setActiveChannel,
+  openModal,
+  closeModal,
+  changeLanguage,
+} = uiSlice.actions;
 export default uiSlice.reducer;

@@ -74,7 +74,8 @@ const ru = {
         remove: 'Удалить',
       },
     },
-    languages: {
+    language: {
+      title: 'Язык',
       en: 'English',
       ru: 'Русский',
     },
