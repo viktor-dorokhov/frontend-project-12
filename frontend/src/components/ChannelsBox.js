@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
 import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
 import { PlusCircle as PlusCircleIcon } from 'react-bootstrap-icons';
+import { animateScroll } from 'react-scroll';
 import { useFetchChannelsQuery } from '../services/channelsApi';
-import { setActiveChannel, openModal } from '../slices/uiSlice';
+import { setActiveChannel, openModal, defaultChannelId } from '../slices/uiSlice';
 
 function ChannelsBox() {
   const { data: channels } = useFetchChannelsQuery();
@@ -12,6 +13,19 @@ function ChannelsBox() {
   const colorTheme = useSelector((state) => state.uiStore.colorTheme);
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const scrollOptions = {
+    duration: 0,
+    delay: 0,
+    containerId: 'channels-box',
+  };
+
+  useEffect(() => {
+    if (activeChannelId === defaultChannelId) {
+      animateScroll.scrollToTop(scrollOptions);
+      return;
+    }
+    animateScroll.scrollToBottom(scrollOptions);
+  }, [channels?.length]);
 
   const setChannel = (id) => {
     dispatch(setActiveChannel(id));

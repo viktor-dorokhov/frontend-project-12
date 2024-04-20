@@ -8,6 +8,7 @@ import { ArrowRightCircle as SendIcon } from 'react-bootstrap-icons';
 import * as yup from 'yup';
 import { toast } from 'react-toastify';
 import leoProfanity from 'leo-profanity';
+import { animateScroll } from 'react-scroll';
 import { useFetchMessagesQuery, useAddMessageMutation } from '../services/messagesApi';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 
@@ -42,8 +43,17 @@ function MessagesBox() {
   const currentUserName = useSelector((state) => state.authStore.username);
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
   const colorTheme = useSelector((state) => state.uiStore.colorTheme);
+  const scrollOptions = {
+    duration: 0,
+    delay: 0,
+    containerId: 'messages-box',
+  };
 
   useEffect(() => {
+    animateScroll.scrollToBottom(scrollOptions);
+  }, [messages?.length]);
+  useEffect(() => {
+    animateScroll.scrollToBottom(scrollOptions);
     inputRef.current.focus();
   }, [activeChannelId]);
 
