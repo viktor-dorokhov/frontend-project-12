@@ -9,6 +9,7 @@ import { setActiveChannel, openModal } from '../slices/uiSlice';
 function ChannelsBox() {
   const { data: channels } = useFetchChannelsQuery();
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
+  const colorTheme = useSelector((state) => state.uiStore.colorTheme);
   const dispatch = useDispatch();
   const { t } = useTranslation();
 
@@ -29,7 +30,7 @@ function ChannelsBox() {
   };
 
   return (
-    <div className="col-4 col-md-2 border-end px-0 bg-light flex-column h-100 d-flex">
+    <div className={`col-4 col-md-2 border-end px-0 flex-column h-100 d-flex bg-${colorTheme}`}>
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channels.channels')}</b>
         <Button type="button" variant="group-vertical" className="p-0 text-primary" onClick={handleAddChannel}>
@@ -53,7 +54,9 @@ function ChannelsBox() {
                       <span className="me-1">#</span>
                       {name}
                     </Button>
-                    <Dropdown.Toggle split variant={variant} id="dropdown-split-basic" />
+                    <Dropdown.Toggle split variant={variant} id="dropdown-split-basic">
+                      <span className="visually-hidden">{t('channels.title')}</span>
+                    </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item onClick={() => handleRemoveChannel(id)}>{t('channels.remove')}</Dropdown.Item>
                       <Dropdown.Item onClick={() => handleRenameChannel(id, name)}>{t('channels.rename')}</Dropdown.Item>

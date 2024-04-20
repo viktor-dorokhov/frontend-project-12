@@ -8,6 +8,7 @@ const en = {
     },
     channels: {
       channels: 'Channels',
+      title: 'Manage channel',
       rename: 'Rename',
       remove: 'Remove',
       toast: {
@@ -55,7 +56,7 @@ const en = {
       },
       renameChannel: {
         title: 'Rename channel',
-        placeholder: 'New channel name',
+        placeholder: 'Сhannel name',
       },
       removeChannel: {
         title: 'Remove channel',
@@ -78,7 +79,11 @@ const en = {
       en: 'English',
       ru: 'Русский',
     },
-    // END
+    color: {
+      title: 'Switch between dark and light theme (currently {{theme}} theme)',
+      light: 'light',
+      dark: 'dark',
+    },
   },
 };
 

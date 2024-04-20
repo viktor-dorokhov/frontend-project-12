@@ -4,16 +4,18 @@ const ru = {
       appName: 'Slack чат',
       logout: 'Выйти',
       loading: 'Loading...',
-      errorNetwork: 'Ошибка сети',
+      errorNetwork: 'Ошибка соединения',
     },
     channels: {
       channels: 'Каналы',
+      title: 'Управление каналом',
       rename: 'Переименовать',
       remove: 'Удалить',
+      name: 'Имя канала',
       toast: {
         added: 'Канал создан',
         renamed: 'Канал переименован',
-        removed: 'Канал удален',
+        removed: 'Канал удалён',
       },
     },
     messages: {
@@ -52,11 +54,11 @@ const ru = {
     modal: {
       addChannel: {
         title: 'Добавить канал',
-        placeholder: 'Название канала',
+        placeholder: 'Имя канала',
       },
       renameChannel: {
         title: 'Переименовать канал',
-        placeholder: 'Новое название канала',
+        placeholder: 'Имя канала',
       },
       removeChannel: {
         title: 'Удалить канал',
@@ -65,8 +67,7 @@ const ru = {
       validation: {
         required: 'Обязательное поле',
         uniq: 'Должно быть уникальным',
-        min: 'От 3 до 20 символов',
-        max: 'От 3 до 20 символов',
+        length: 'От 3 до 20 символов',
       },
       buttons: {
         submit: 'Отправить',
@@ -79,7 +80,11 @@ const ru = {
       en: 'English',
       ru: 'Русский',
     },
-    // END
+    color: {
+      title: 'Переключение между темной и светлой темой (сейчас {{theme}} тема)',
+      light: 'светлая',
+      dark: 'темная',
+    },
   },
 };
 

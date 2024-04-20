@@ -11,7 +11,8 @@ const initialState = {
     active: null,
     data: null,
   },
-  language: 'ru',
+  language: localStorage.getItem('language') || 'ru',
+  colorTheme: localStorage.getItem('colorTheme') || 'light',
 };
 
 const uiSlice = createSlice({
@@ -28,8 +29,13 @@ const uiSlice = createSlice({
     closeModal(state) {
       state.modal.active = null;
     },
-    changeLanguage(state, { payload }) {
+    setLanguage(state, { payload }) {
       state.language = payload;
+      localStorage.setItem('language', payload);
+    },
+    setColorTheme(state, { payload }) {
+      state.colorTheme = payload;
+      localStorage.setItem('colorTheme', payload);
     },
   },
   extraReducers: (builder) => {
@@ -46,6 +52,7 @@ export const {
   setActiveChannel,
   openModal,
   closeModal,
-  changeLanguage,
+  setLanguage,
+  setColorTheme,
 } = uiSlice.actions;
 export default uiSlice.reducer;

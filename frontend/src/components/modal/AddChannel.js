@@ -13,8 +13,8 @@ const getValidationSchema = (channelNames) => yup.object().shape({
     .trim()
     .required('modal.validation.required')
     .notOneOf(channelNames, 'modal.validation.uniq')
-    .min(3, 'modal.validation.min')
-    .max(20, 'modal.validation.max'),
+    .min(3, 'modal.validation.length')
+    .max(20, 'modal.validation.length'),
 });
 
 // eslint-disable-next-line react/prop-types
@@ -66,6 +66,7 @@ function AddChannel({ onHide }) {
               isInvalid={formik.errors.name && formik.touched.name}
               name="name"
             />
+            <Form.Label className="visually-hidden" htmlFor="name">{t('modal.addChannel.placeholder')}</Form.Label>
             <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
           </Form.Group>
         </Modal.Body>

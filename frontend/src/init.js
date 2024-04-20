@@ -15,7 +15,7 @@ const init = async () => {
   const i18nInstance = i18next.createInstance();
   const options = {
     resources,
-    fallbackLng: 'ru',
+    fallbackLng: localStorage.getItem('language') || 'ru',
     interpolation: {
       escapeValue: false,
     },

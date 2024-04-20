@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+[data-bs-theme="dark"] .bg-light {
+  background-color: rgb(68, 73, 80) !important;
+}
+
+[data-bs-theme="dark"] .bg-white {
+  background-color: rgb(43, 48, 53) !important;
+}

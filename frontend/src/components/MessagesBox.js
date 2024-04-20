@@ -41,6 +41,7 @@ function MessagesBox() {
   const inputRef = useRef();
   const currentUserName = useSelector((state) => state.authStore.username);
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
+  const colorTheme = useSelector((state) => state.uiStore.colorTheme);
 
   useEffect(() => {
     inputRef.current.focus();
@@ -69,7 +70,7 @@ function MessagesBox() {
   return (
     <div className="col p-0 h-100">
       <div className="d-flex flex-column h-100">
-        <div className="bg-light mb-4 p-3 shadow-sm small">
+        <div className={`mb-4 p-3 shadow-sm small bg-${colorTheme}`}>
           <p className="m-0">
             <b>{`# ${channelName}`}</b>
           </p>
