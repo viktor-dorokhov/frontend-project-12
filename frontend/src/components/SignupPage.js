@@ -1,6 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useFormik } from 'formik';
 import {
+  Container,
+  Row,
+  Col,
   Button,
   Form,
   Card,
@@ -77,19 +80,19 @@ function SignupPage() {
   };
 
   return (
-    <div className="container-fluid h-100">
-      <div className="row justify-content-center pt-5row justify-content-center align-content-center h-100">
-        <div className="col-12 col-md-8 col-xxl-6">
+    <Container fluid className="h-100">
+      <Row className="justify-content-center align-content-center h-100">
+        <Col xs={12} md={8} xxl={6}>
           <Card className="shadow-sm">
             <Card.Body className="row p-5">
-              <div className="col-12 col-md-6 d-flex align-items-center justify-content-center">
+              <Col xs={12} md={6} className="d-flex align-items-center justify-content-center">
                 <Image
                   fluid
                   className="w-50"
                   src={addUserImage}
                   alt={t('signup.title')}
                 />
-              </div>
+              </Col>
               <Form onSubmit={formik.handleSubmit} className="col-12 col-md-6 mt-3 mt-mb-0">
                 <h1 className="text-center mb-4">{t('signup.title')}</h1>
                 <Form.Group className="form-floating mb-3">
@@ -156,9 +159,9 @@ function SignupPage() {
               </div>
             </Card.Footer>
           </Card>
-        </div>
-      </div>
-    </div>
+        </Col>
+      </Row>
+    </Container>
   );
 }
 

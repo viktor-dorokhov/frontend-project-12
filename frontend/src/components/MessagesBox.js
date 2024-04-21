@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { createSelector } from '@reduxjs/toolkit';
 import { useFormik } from 'formik';
-import { Button, Form } from 'react-bootstrap';
+import { Col, Button, Form } from 'react-bootstrap';
 import { useTranslation } from 'react-i18next';
 import { ArrowRightCircle as SendIcon } from 'react-bootstrap-icons';
 import * as yup from 'yup';
@@ -78,7 +78,7 @@ function MessagesBox() {
   });
 
   return (
-    <div className="col p-0 h-100">
+    <Col className="p-0 h-100">
       <div className="d-flex flex-column h-100">
         <div className={`mb-4 p-3 shadow-sm small bg-${colorTheme}`}>
           <p className="m-0">
@@ -117,7 +117,7 @@ function MessagesBox() {
           </Form>
         </div>
       </div>
-    </div>
+    </Col>
   );
 }
 

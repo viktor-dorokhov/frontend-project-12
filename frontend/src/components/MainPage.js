@@ -1,8 +1,8 @@
 import React from 'react';
+import { Container, Row } from 'react-bootstrap';
 import Spinner from './Spinner';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 import { useFetchMessagesQuery } from '../services/messagesApi';
-
 import ChannelsBox from './ChannelsBox';
 import MessagesBox from './MessagesBox';
 import Modal from './modal/index';
@@ -19,12 +19,12 @@ function MainPage() {
       )
       : (
         <>
-          <div className="container h-100 my-4 overflow-hidden rounded shadow">
-            <div className="row h-100 bg-white flex-md-row">
+          <Container className="h-100 my-4 overflow-hidden rounded shadow">
+            <Row className="h-100 bg-white flex-md-row">
               <ChannelsBox />
               <MessagesBox />
-            </div>
-          </div>
+            </Row>
+          </Container>
           <Modal />
         </>
       )

@@ -66,25 +66,23 @@ function App() {
           <Container>
             <Navbar.Brand as={Link} to="/">{t('main.appName')}</Navbar.Brand>
             <div className="d-flex">
-              <Button type="button" variant="group-vertical" className="p-0 me-3" onClick={handleSetColorTheme} title={colorSwitchTitle}>
+              <Button type="button" variant="group-vertical" className="p-0 me-3 border-0" onClick={handleSetColorTheme} title={colorSwitchTitle}>
                 {colorTheme === 'dark' ? <MoonIcon size={20} /> : <SunIcon size={20} />}
                 <span className="visually-hidden">{colorSwitchTitle}</span>
               </Button>
-              <Navbar.Collapse className="me-3">
-                <Nav>
-                  <NavDropdown
-                    title={(
-                      <>
-                        <TranslateIcon size={20} />
-                        <span className="visually-hidden">{t('language.title')}</span>
-                      </>
-                    )}
-                  >
-                    <NavDropdown.Item active={language === 'ru'} onClick={() => handleSetLanguage('ru')}>{t('language.ru')}</NavDropdown.Item>
-                    <NavDropdown.Item active={language === 'en'} onClick={() => handleSetLanguage('en')}>{t('language.en')}</NavDropdown.Item>
-                  </NavDropdown>
-                </Nav>
-              </Navbar.Collapse>
+              <Nav className="me-3">
+                <NavDropdown
+                  title={(
+                    <>
+                      <TranslateIcon size={20} />
+                      <span className="visually-hidden">{t('language.title')}</span>
+                    </>
+                  )}
+                >
+                  <NavDropdown.Item active={language === 'ru'} onClick={() => handleSetLanguage('ru')}>{t('language.ru')}</NavDropdown.Item>
+                  <NavDropdown.Item active={language === 'en'} onClick={() => handleSetLanguage('en')}>{t('language.en')}</NavDropdown.Item>
+                </NavDropdown>
+              </Nav>
               {loggedIn && <Button onClick={() => dispatch(logout())}>{t('main.logout')}</Button>}
             </div>
           </Container>

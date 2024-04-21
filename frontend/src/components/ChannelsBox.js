@@ -1,7 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useTranslation } from 'react-i18next';
-import { Button, ButtonGroup, Dropdown } from 'react-bootstrap';
+import {
+  Col,
+  Button,
+  ButtonGroup,
+  Dropdown,
+} from 'react-bootstrap';
 import { PlusCircle as PlusCircleIcon } from 'react-bootstrap-icons';
 import { animateScroll } from 'react-scroll';
 import { useFetchChannelsQuery } from '../services/channelsApi';
@@ -44,7 +49,7 @@ function ChannelsBox() {
   };
 
   return (
-    <div className={`col-4 col-md-2 border-end px-0 flex-column h-100 d-flex bg-${colorTheme}`}>
+    <Col xs={4} md={2} className={`border-end px-0 flex-column h-100 d-flex bg-${colorTheme}`}>
       <div className="d-flex mt-1 justify-content-between mb-2 ps-4 pe-2 p-4">
         <b>{t('channels.channels')}</b>
         <Button type="button" variant="group-vertical" className="p-0 text-primary" onClick={handleAddChannel}>
@@ -91,7 +96,7 @@ function ChannelsBox() {
           );
         })}
       </ul>
-    </div>
+    </Col>
   );
 }
 
