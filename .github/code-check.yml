@@ -9,4 +9,4 @@ jobs:
         with:
           cache: 'npm'
       - run: make install
-      - run: make lint
+      - run: make lint-frontend
