@@ -1,7 +1,7 @@
 const en = {
   translation: {
     main: {
-      appName: 'Slack chat',
+      appName: 'Hexlet Chat',
       logout: 'Log out',
       loading: 'Загрузка...',
       errorNetwork: 'Network error',

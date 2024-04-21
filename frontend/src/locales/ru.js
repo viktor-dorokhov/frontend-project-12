@@ -1,7 +1,7 @@
 const ru = {
   translation: {
     main: {
-      appName: 'Slack чат',
+      appName: 'Hexlet Chat',
       logout: 'Выйти',
       loading: 'Loading...',
       errorNetwork: 'Ошибка соединения',
