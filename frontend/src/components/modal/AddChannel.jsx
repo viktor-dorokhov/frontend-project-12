@@ -65,6 +65,7 @@ const AddChannel = ({ onHide }) => {
               placeholder={t('modal.addChannel.placeholder')}
               isInvalid={formik.errors.name && formik.touched.name}
               name="name"
+              id="name"
             />
             <Form.Label className="visually-hidden" htmlFor="name">{t('modal.addChannel.placeholder')}</Form.Label>
             <Form.Control.Feedback type="invalid">{t(formik.errors.name)}</Form.Control.Feedback>
