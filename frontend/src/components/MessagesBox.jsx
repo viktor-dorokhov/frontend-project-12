@@ -19,6 +19,12 @@ const validationSchema = yup.object().shape({
     .required(),
 });
 
+const scrollOptions = {
+  duration: 0,
+  delay: 0,
+  containerId: 'messages-box',
+};
+
 const MessagesBox = () => {
   const { data: allMessages } = useFetchMessagesQuery();
   const { data: channels } = useFetchChannelsQuery();
@@ -33,7 +39,7 @@ const MessagesBox = () => {
   const getActiveChannelName = createSelector(
     (state) => state.uiStore.activeChannelId,
     (activeChannelId) => (
-      channels?.find((channel) => channel.id === activeChannelId).name
+      channels?.find((channel) => channel.id === activeChannelId)?.name
     ),
   );
   const channelName = useSelector(getActiveChannelName);
@@ -43,11 +49,6 @@ const MessagesBox = () => {
   const currentUserName = useSelector((state) => state.authStore.username);
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
   const colorTheme = useSelector((state) => state.uiStore.colorTheme);
-  const scrollOptions = {
-    duration: 0,
-    delay: 0,
-    containerId: 'messages-box',
-  };
 
   useEffect(() => {
     animateScroll.scrollToBottom(scrollOptions);

@@ -12,17 +12,18 @@ import { animateScroll } from 'react-scroll';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 import { setActiveChannel, openModal, defaultChannelId } from '../slices/uiSlice';
 
+const scrollOptions = {
+  duration: 0,
+  delay: 0,
+  containerId: 'channels-box',
+};
+
 const ChannelsBox = () => {
   const { data: channels } = useFetchChannelsQuery();
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
   const colorTheme = useSelector((state) => state.uiStore.colorTheme);
   const dispatch = useDispatch();
   const { t } = useTranslation();
-  const scrollOptions = {
-    duration: 0,
-    delay: 0,
-    containerId: 'channels-box',
-  };
 
   useEffect(() => {
     if (activeChannelId === defaultChannelId) {
@@ -30,7 +31,7 @@ const ChannelsBox = () => {
       return;
     }
     animateScroll.scrollToBottom(scrollOptions);
-  }, [channels?.length]);
+  }, [channels?.length, activeChannelId]);
 
   const setChannel = (id) => {
     dispatch(setActiveChannel(id));
