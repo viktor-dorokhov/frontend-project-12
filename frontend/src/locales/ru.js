@@ -31,6 +31,7 @@ const ru = {
       },
       placeholder: 'Введите сообщение...',
       send: 'Отправить',
+      newMessage: 'Новое сообщение',
     },
     login: {
       username: 'Ваш ник',

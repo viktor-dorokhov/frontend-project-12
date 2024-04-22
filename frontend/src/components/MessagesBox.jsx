@@ -108,6 +108,7 @@ const MessagesBox = () => {
                 id="message"
                 autoComplete="message"
                 ref={inputRef}
+                aria-label={t('messages.newMessage')}
               />
               <Button type="submit" variant="group-vertical" className="border-0" disabled={!(formik.isValid && formik.dirty)}>
                 <SendIcon size={20} />

@@ -29,6 +29,7 @@ const en = {
       },
       placeholder: 'Enter a message...',
       send: 'Send',
+      newMessage: 'New message',
     },
     login: {
       username: 'Your nickname',
