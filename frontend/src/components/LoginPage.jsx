@@ -67,7 +67,6 @@ const LoginPage = () => {
                   <Form.Control
                     onChange={formik.handleChange}
                     value={formik.values.username}
-                    placeholder={t('login.username')}
                     name="username"
                     id="username"
                     autoComplete="current-username"
@@ -82,7 +81,6 @@ const LoginPage = () => {
                     type="password"
                     onChange={formik.handleChange}
                     value={formik.values.password}
-                    placeholder={t('login.password')}
                     name="password"
                     id="password"
                     autoComplete="current-password"

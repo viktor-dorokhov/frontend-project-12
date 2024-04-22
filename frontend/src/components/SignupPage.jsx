@@ -100,7 +100,6 @@ const SignupPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.username}
-                    placeholder={t('signup.username')}
                     name="username"
                     data-testid="input-username"
                     autoComplete="new-username"
@@ -119,7 +118,6 @@ const SignupPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.password}
-                    placeholder={t('signup.password')}
                     name="password"
                     id="password"
                     autoComplete="new-password"
@@ -134,7 +132,6 @@ const SignupPage = () => {
                     onChange={formik.handleChange}
                     onBlur={formik.handleBlur}
                     value={formik.values.confirm}
-                    placeholder={t('signup.confirm')}
                     name="confirm"
                     id="confirm"
                     autoComplete="new-confirm"
