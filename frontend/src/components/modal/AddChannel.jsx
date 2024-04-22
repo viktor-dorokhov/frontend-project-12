@@ -18,7 +18,7 @@ const getValidationSchema = (channelNames) => yup.object().shape({
 });
 
 // eslint-disable-next-line react/prop-types
-function AddChannel({ onHide }) {
+const AddChannel = ({ onHide }) => {
   const { t } = useTranslation();
   const [addChannel] = useAddChannelMutation();
   const { data: channels } = useFetchChannelsQuery();
@@ -81,6 +81,6 @@ function AddChannel({ onHide }) {
       </Form>
     </Modal>
   );
-}
+};
 
 export default AddChannel;

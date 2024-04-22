@@ -6,6 +6,11 @@ const en = {
       loading: 'Загрузка...',
       errorNetwork: 'Network error',
     },
+    unknownPage: {
+      title: 'The page was not found',
+      goto: 'But you can go to',
+      mainPage: 'the main page',
+    },
     channels: {
       channels: 'Channels',
       title: 'Manage channel',

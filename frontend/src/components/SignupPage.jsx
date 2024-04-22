@@ -38,7 +38,7 @@ const validationSchema = yup.object().shape({
     ),
 });
 
-function SignupPage() {
+const SignupPage = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -163,6 +163,6 @@ function SignupPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default SignupPage;

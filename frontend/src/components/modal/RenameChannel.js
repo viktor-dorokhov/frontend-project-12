@@ -19,7 +19,7 @@ const getValidationSchema = (channelNames) => yup.object().shape({
 });
 
 // eslint-disable-next-line react/prop-types
-function RenameChannel({ onHide }) {
+const RenameChannel = ({ onHide }) => {
   const { t } = useTranslation();
   const [renameChannel] = useRenameChannelMutation();
   const { data: channels } = useFetchChannelsQuery();
@@ -85,6 +85,6 @@ function RenameChannel({ onHide }) {
       </Form>
     </Modal>
   );
-}
+};
 
 export default RenameChannel;

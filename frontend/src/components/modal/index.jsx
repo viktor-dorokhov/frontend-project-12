@@ -12,7 +12,7 @@ const modalsMapping = {
   renameChannel: RenameChannelModal,
 };
 
-function Modal() {
+const Modal = () => {
   const dispatch = useDispatch();
   const activeModal = useSelector((state) => state.uiStore.modal.active);
   if (!activeModal) {
@@ -25,6 +25,6 @@ function Modal() {
   const ModalWindow = modalsMapping[activeModal];
 
   return <ModalWindow onHide={handleClose} />;
-}
+};
 
 export default Modal;

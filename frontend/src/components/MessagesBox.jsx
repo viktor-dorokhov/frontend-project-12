@@ -19,7 +19,7 @@ const validationSchema = yup.object().shape({
     .required(),
 });
 
-function MessagesBox() {
+const MessagesBox = () => {
   const { data: allMessages } = useFetchMessagesQuery();
   const { data: channels } = useFetchChannelsQuery();
   const getMessagesByChannel = createSelector(
@@ -119,6 +119,6 @@ function MessagesBox() {
       </div>
     </Col>
   );
-}
+};
 
 export default MessagesBox;

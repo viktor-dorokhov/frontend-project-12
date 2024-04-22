@@ -12,7 +12,7 @@ import { animateScroll } from 'react-scroll';
 import { useFetchChannelsQuery } from '../services/channelsApi';
 import { setActiveChannel, openModal, defaultChannelId } from '../slices/uiSlice';
 
-function ChannelsBox() {
+const ChannelsBox = () => {
   const { data: channels } = useFetchChannelsQuery();
   const activeChannelId = useSelector((state) => state.uiStore.activeChannelId);
   const colorTheme = useSelector((state) => state.uiStore.colorTheme);
@@ -98,6 +98,6 @@ function ChannelsBox() {
       </ul>
     </Col>
   );
-}
+};
 
 export default ChannelsBox;

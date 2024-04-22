@@ -7,7 +7,7 @@ import ChannelsBox from './ChannelsBox';
 import MessagesBox from './MessagesBox';
 import Modal from './modal/index';
 
-function MainPage() {
+const MainPage = () => {
   const { isLoading: isChannelsLoading } = useFetchChannelsQuery();
   const { isLoading: isMessagessLoading } = useFetchMessagesQuery();
   return (
@@ -29,6 +29,6 @@ function MainPage() {
         </>
       )
   );
-}
+};
 
 export default MainPage;

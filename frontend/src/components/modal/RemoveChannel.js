@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import { useRemoveChannelMutation } from '../../services/channelsApi';
 
 // eslint-disable-next-line react/prop-types
-function RemoveChannel({ onHide }) {
+const RemoveChannel = ({ onHide }) => {
   const [isSubmitting, setSubmitting] = useState(false);
   const { t } = useTranslation();
   const [removeChannel] = useRemoveChannelMutation();
@@ -45,6 +45,6 @@ function RemoveChannel({ onHide }) {
       </Form>
     </Modal>
   );
-}
+};
 
 export default RemoveChannel;

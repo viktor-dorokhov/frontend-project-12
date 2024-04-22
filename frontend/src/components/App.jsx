@@ -25,21 +25,18 @@ import { logout } from '../slices/authSlice';
 import LoginPage from './LoginPage';
 import SignupPage from './SignupPage';
 import MainPage from './MainPage';
+import UnknownPage from './UnknownPage';
 import { setLanguage, setColorTheme } from '../slices/uiSlice';
 
-function Page404() {
-  return <div>Page 404</div>;
-}
-
-function MainRoute() {
+const MainRoute = () => {
   const location = useLocation();
   const loggedIn = useSelector((state) => state.authStore.loggedIn);
   return (
     loggedIn ? <MainPage /> : <Navigate to="/login" state={{ from: location }} />
   );
-}
+};
 
-function App() {
+const App = () => {
   const dispatch = useDispatch();
   const { t, i18n } = useTranslation();
   const loggedIn = useSelector((state) => state.authStore.loggedIn);
@@ -88,7 +85,7 @@ function App() {
           </Container>
         </Navbar>
         <Routes>
-          <Route path="*" element={<Page404 />} />
+          <Route path="*" element={<UnknownPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/" element={<MainRoute />} />
@@ -97,6 +94,6 @@ function App() {
       <ToastContainer />
     </Router>
   );
-}
+};
 
 export default App;

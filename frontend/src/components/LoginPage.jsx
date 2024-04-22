@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import chatImage from '../assets/chat.png';
 import { useLoginMutation } from '../services/authApi';
 
-function LoginPage() {
+const LoginPage = () => {
   const inputRef = useRef();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -114,6 +114,6 @@ function LoginPage() {
       </Row>
     </Container>
   );
-}
+};
 
 export default LoginPage;

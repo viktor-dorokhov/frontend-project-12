@@ -6,6 +6,11 @@ const ru = {
       loading: 'Loading...',
       errorNetwork: 'Ошибка соединения',
     },
+    unknownPage: {
+      title: 'Страница не найдена',
+      goto: 'Но вы можете перейти на',
+      mainPage: 'главную страницу',
+    },
     channels: {
       channels: 'Каналы',
       title: 'Управление каналом',
