@@ -20,7 +20,7 @@ make build
 ```
 Для сборки и запуска приложения в браузере выполните команду
 ```
-make develop
+make local-start
 ```
 
 
