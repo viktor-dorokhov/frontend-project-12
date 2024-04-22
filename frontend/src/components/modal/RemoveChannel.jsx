@@ -38,7 +38,7 @@ const RemoveChannel = ({ onHide }) => {
           <Button variant="secondary" onClick={onHide}>
             {t('modal.buttons.cancel')}
           </Button>
-          <Button type="submit" variant="primary" disabled={isSubmitting}>
+          <Button type="submit" variant="danger" disabled={isSubmitting}>
             {t('modal.buttons.remove')}
           </Button>
         </Modal.Footer>
