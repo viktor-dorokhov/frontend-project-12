@@ -137,7 +137,7 @@ const SignupPage = () => {
                     autoComplete="new-confirm"
                     isInvalid={formik.errors.confirm && formik.touched.confirm}
                   />
-                  <Form.Label htmlFor="password">{t('signup.confirm')}</Form.Label>
+                  <Form.Label htmlFor="confirm">{t('signup.confirm')}</Form.Label>
                   <Form.Control.Feedback type="invalid" tooltip>{t(formik.errors.confirm)}</Form.Control.Feedback>
                 </Form.Group>
                 <Button
