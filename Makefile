@@ -8,9 +8,12 @@ start-frontend:
 	make -C frontend start
 
 start-backend:
-	npx start-server
+	npm start
 
 start:
+	make start-backend
+
+local-start:
 	make start-backend & make start-frontend
 
 build:
