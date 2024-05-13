@@ -4,6 +4,7 @@ import uiReducer from './uiSlice';
 import { authApi } from '../services/authApi';
 import { channelsApi } from '../services/channelsApi';
 import { messagesApi } from '../services/messagesApi';
+import middlewares from '../middlewares';
 
 export default configureStore({
   reducer: {
@@ -13,7 +14,7 @@ export default configureStore({
     [channelsApi.reducerPath]: channelsApi.reducer,
     [messagesApi.reducerPath]: messagesApi.reducer,
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat([
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middlewares).concat([
     authApi.middleware,
     channelsApi.middleware,
     messagesApi.middleware,

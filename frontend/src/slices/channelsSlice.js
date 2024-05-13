@@ -12,9 +12,11 @@ const channelsSlice = createSlice({
   name: 'channels',
   initialState,
   reducers: {
+    // for removed middlewares
     fetchChannels: (state) => {
       state.status = 'loading';
     },
+    // for removed middlewares
     fetchChannelsSuccess: (state, { payload }) => {
       state.status = 'loaded';
       state.channels = payload;
@@ -22,6 +24,7 @@ const channelsSlice = createSlice({
         state.activeId = payload[0].id;
       }
     },
+    // for removed middlewares
     fetchChannelsError: (state, { payload }) => {
       // state.channels = [];
       state.error = payload;

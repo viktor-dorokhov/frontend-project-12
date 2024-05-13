@@ -85,10 +85,10 @@ const MessagesBox = () => {
           <p className="m-0">
             <b>{`# ${channelName}`}</b>
           </p>
-          <span className="text-muted">{t('messages.counter.count', { count: messages.length })}</span>
+          <span className="text-muted">{t('messages.counter.count', { count: messages?.length })}</span>
         </div>
         <div id="messages-box" className="chat-messages overflow-auto px-5 ">
-          {messages
+          {(messages || [])
             .map(({ id, body, username }) => (
               <div key={id} className="text-break mb-2">
                 <b>{username}</b>

@@ -11,6 +11,7 @@ const messagesSlice = createSlice({
   name: 'messages',
   initialState,
   reducers: {
+    // all reducers for removed middlewares
     fetchMessages: (state) => {
       state.status = 'loading';
     },
